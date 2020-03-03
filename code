@@ -1,0 +1,19 @@
+$scope.gridApi.core.on.rowsRendered($scope, function (e, a, b, c) {
+                        /*this is to maintain separator Line after UI grid Sorting --Pankaj*/
+                            // ------------------------------------------------------------------------------------------
+                            var k = -1;
+                            if ($scope.gridApi.grid.element[0].id === "householdRebalanceInfoGrid") {
+                                
+                                if ($scope.gridApi.grid.renderContainers.body.visibleRowCache[2].treeLevel !== 1) {
+                                    $scope.gridApi.grid.renderContainers.body.visibleRowCache[1].entity.showLine = true;
+                                    $scope.gridApi.grid.renderContainers.body.renderedRows[1].entity.showLine = true;
+                                    $scope.setShowLine(false, k);//for all child show line false
+                                } else {
+                                    $scope.gridApi.grid.renderContainers.body.visibleRowCache[1].entity.showLine = false;
+                                    $scope.gridApi.grid.renderContainers.body.renderedRows[1].entity.showLine = false;
+                                    k = $scope.gridApi.grid.renderContainers.body.visibleRowCache[1].entity.HouseHoldItems.length;
+                                    $scope.setShowLine(true, k);//for last child show line true
+                                }                         
+                            }
+                            //----------------------------------------------------
+                            $scope.$emit('gridRowsRendered', { "GridName": ctrl.gridName });
